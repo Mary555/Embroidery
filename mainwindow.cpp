@@ -50,13 +50,13 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
 void MainWindow::addWidget()
 {
     int rows = addDataBase->getCount()+1;
-    int colums = rows/20;
+    int colums = rows/70;
     int k=0;
     int idRow =1;
     for(int i = 0; i<colums; i++){
         ElementVertikal *elementColum = new ElementVertikal();
         int j = 0; // колличество строк в столбце
-        for(; j<20; j++){
+        for(; j<70; j++){
             ElementRow *elementRow = new ElementRow();
             elementColum->addWidget(elementRow);
             connect(elementRow,SIGNAL(valueChanged(int)), this, SLOT(saveChanget(int)));

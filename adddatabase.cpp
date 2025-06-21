@@ -12,8 +12,8 @@ void AddDataBase::connectDB()
     QSqlDatabase sdb = QSqlDatabase::addDatabase("QSQLITE");
     QDir dir;
     QString path = dir.absolutePath();
-    qDebug() << path+"/debug/CheckList.sqlite";
-    sdb.setDatabaseName(path+"/debug/CheckList.sqlite");
+    qDebug() << path+"/CheckList.sqlite";
+    sdb.setDatabaseName(path+"/CheckList.sqlite");
     if (!sdb.open()) {
         qDebug() << sdb.lastError().text();
     }
