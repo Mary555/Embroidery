@@ -30,9 +30,6 @@ void ElementRow::setCheked(bool index)
 
 void ElementRow::setRGB(int r, int g, int b)
 {
-    qDebug() << "r = "<<r;
-    qDebug() << "g = "<<g;
-    qDebug() << "b = "<<b;
     QString style = QString("background-color: rgb(%1,%2,%3);").arg(r).arg(g).arg(b);
     ui->WColor->setStyleSheet(style);
 }
