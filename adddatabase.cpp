@@ -158,6 +158,96 @@ bool AddDataBase::getIsCheked(int id)
     return isCheked;
 }
 
+int AddDataBase::getR(int id)
+{
+    QSqlQuery qry;
+    int r_=0;
+    QString id1=QString::number(id);
+    if(id_==ThreadType::DMC){
+        qry.prepare( "SELECT r FROM dmc WHERE id='"+id1+"';" );
+    }
+    else if(id_==ThreadType::GAMMA){
+        qry.prepare( "SELECT r FROM gamma WHERE id='"+id1+"';" );
+    }
+    else if(id_==ThreadType::PNK){
+        qry.prepare( "SELECT r FROM kirova WHERE id='"+id1+"';" );
+    }
+    else if(id_==ThreadType::ANCHOR){
+        qry.prepare( "SELECT r FROM anchor WHERE id='"+id1+"';" );
+    }
+
+    if( !qry.exec() ){
+        qDebug() << qry.lastError().text();
+    }
+    else{
+        while(qry.next()){
+            //            qDebug() << QString( "%1" ).arg( qry.value(0).toString() );
+            r_=qry.value(0).toInt();
+        }
+    }
+    return r_;
+}
+
+int AddDataBase::getG(int id)
+{
+    QSqlQuery qry;
+    int g_=0;
+    QString id1=QString::number(id);
+    if(id_==ThreadType::DMC){
+        qry.prepare( "SELECT g FROM dmc WHERE id='"+id1+"';" );
+    }
+    else if(id_==ThreadType::GAMMA){
+        qry.prepare( "SELECT g FROM gamma WHERE id='"+id1+"';" );
+    }
+    else if(id_==ThreadType::PNK){
+        qry.prepare( "SELECT g FROM kirova WHERE id='"+id1+"';" );
+    }
+    else if(id_==ThreadType::ANCHOR){
+        qry.prepare( "SELECT g FROM anchor WHERE id='"+id1+"';" );
+    }
+
+    if( !qry.exec() ){
+        qDebug() << qry.lastError().text();
+    }
+    else{
+        while(qry.next()){
+            //            qDebug() << QString( "%1" ).arg( qry.value(0).toString() );
+            g_=qry.value(0).toInt();
+        }
+    }
+    return g_;
+}
+
+int AddDataBase::getB(int id)
+{
+    QSqlQuery qry;
+    int b_=0;
+    QString id1=QString::number(id);
+    if(id_==ThreadType::DMC){
+        qry.prepare( "SELECT b FROM dmc WHERE id='"+id1+"';" );
+    }
+    else if(id_==ThreadType::GAMMA){
+        qry.prepare( "SELECT b FROM gamma WHERE id='"+id1+"';" );
+    }
+    else if(id_==ThreadType::PNK){
+        qry.prepare( "SELECT b FROM kirova WHERE id='"+id1+"';" );
+    }
+    else if(id_==ThreadType::ANCHOR){
+        qry.prepare( "SELECT b FROM anchor WHERE id='"+id1+"';" );
+    }
+
+    if( !qry.exec() ){
+        qDebug() << qry.lastError().text();
+    }
+    else{
+        while(qry.next()){
+            //            qDebug() << QString( "%1" ).arg( qry.value(0).toString() );
+            b_=qry.value(0).toInt();
+        }
+    }
+    return b_;
+}
+
 void AddDataBase::setId(int id)
 {
     id_=id;

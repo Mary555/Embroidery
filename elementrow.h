@@ -18,6 +18,7 @@ public:
     void setNumberrope(QString number);
     void setAmount(int amount);
     void setCheked(bool index);
+    void setRGB(int r, int g, int b);
     void setId(int id);
 
     int getAmount();

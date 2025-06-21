@@ -28,6 +28,15 @@ void ElementRow::setCheked(bool index)
     ui->checkBox->setChecked(index);
 }
 
+void ElementRow::setRGB(int r, int g, int b)
+{
+    qDebug() << "r = "<<r;
+    qDebug() << "g = "<<g;
+    qDebug() << "b = "<<b;
+    QString style = QString("background-color: rgb(%1,%2,%3);").arg(r).arg(g).arg(b);
+    ui->WColor->setStyleSheet(style);
+}
+
 void ElementRow::setId(int id)
 {
     id_=id;

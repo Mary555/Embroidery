@@ -91,6 +91,7 @@ void MainWindow::filling()
         elementRowList[i]->setNumberrope(addDataBase->getNumberrope(k+1));
         elementRowList[i]->setAmount(addDataBase->getAmount(k+1));
         elementRowList[i]->setCheked(addDataBase->getIsCheked(k+1));
+        elementRowList[i]->setRGB(addDataBase->getR(k+1),addDataBase->getG(k+1),addDataBase->getB(k+1));
     }
 }
 
