@@ -20,16 +20,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_comboBox_currentIndexChanged(int index)
 {
-    if(!elementVertikalList.isEmpty()){
-        for(int i = 0; i<elementRowList.size(); i++){
-            elementRowList[i]->deleteLater();
-        }
-        for(int i = 0; i<elementVertikalList.size(); i++){
-            elementVertikalList[i]->deleteLater();
-        }
-        elementRowList.clear();
-        elementVertikalList.clear();
+    for(int i = 0; i<elementRowList.size(); i++){
+        elementRowList[i]->deleteLater();
     }
+    elementRowList.clear();
     index += 1;
     if(index==ThreadType::DMC){
         addDataBase->setId(index);
@@ -53,34 +47,29 @@ void MainWindow::addWidget()
     int colums = rows/70;
     int k=0;
     int idRow =1;
-    for(int i = 0; i<colums; i++){
-        ElementVertikal *elementColum = new ElementVertikal();
+    int i = 0;
+    for(; i<colums; i++){
         int j = 0; // колличество строк в столбце
         for(; j<70; j++){
             ElementRow *elementRow = new ElementRow();
-            elementColum->addWidget(elementRow);
             connect(elementRow,SIGNAL(valueChanged(int)), this, SLOT(saveChanget(int)));
             elementRowList.append(elementRow);
             elementRow->setId(idRow);
             idRow++;
+            ui->gridLayout_3->addWidget(elementRow, j, i, Qt::AlignJustify);
         }
         k+=j;
-        elementVertikalList.append(elementColum);
-        ui->horizontalLayout_2->addWidget(elementColum);
     }
     int ost = rows-k;
     if(ost>0){
-        ElementVertikal *elementColum = new ElementVertikal();
         for(int j = 0; j<ost; j++){
             ElementRow *elementRow = new ElementRow();
-            elementColum->addWidget(elementRow);
             connect(elementRow,SIGNAL(valueChanged(int)), this, SLOT(saveChanget(int)));
             elementRowList.append(elementRow);
             elementRow->setId(idRow);
             idRow++;
+            ui->gridLayout_3->addWidget(elementRow, j, i, Qt::AlignJustify);
         }
-        elementVertikalList.append(elementColum);
-        ui->horizontalLayout_2->addWidget(elementColum);
     }
 }
 
@@ -138,29 +127,7 @@ void MainWindow::saveChanget(int idRow)
 {
     // int id, QString numberrope, int amount, bool isvalue
     addDataBase->setUpdate(idRow, elementRowList[idRow-1]->getText(), elementRowList[idRow-1]->getAmount(), elementRowList[idRow-1]->getCheked());
-    int m = idRow*100/elementRowList.size(); //расчет процентов загрузки, пока что не нужно
-    ui->progressBar->setValue(m);
 }
-
-//void MainWindow::on_pushButtonSave_clicked()
-//{
-//    ui->progressBar->show();
-//    for(int i = 0; i<elementRowList.size(); i++){
-//        connect(elementRowList[i],SIGNAL(valueChanged()), this, SLOT(saveChanget()));
-//    }
-//    ui->progressBar->hide();
-//}
-
-//void MainWindow::saveChanget()
-//{
-//    for(int i = 0; i<elementRowList.size(); i++){
-//        int k = i;
-//        addDataBase->setUpdate(k+1, elementRowList[i]->getText(), elementRowList[i]->getAmount(), elementRowList[i]->getCheked());
-
-//        int m = i*100/elementRowList.size();
-//        ui->progressBar->setValue(m);
-//    }
-//}
 
 void MainWindow::on_pushButtonReset_clicked()
 {

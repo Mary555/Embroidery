@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include <adddatabase.h>
 #include <elementrow.h>
-#include <elementvertikal.h>
 
 namespace Ui {
 class MainWindow;
@@ -41,7 +40,6 @@ private:
 
     AddDataBase *addDataBase;
     QList<ElementRow *> elementRowList;
-    QList<ElementVertikal *> elementVertikalList;
 
     int id_;
 };

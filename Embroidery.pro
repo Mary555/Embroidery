@@ -28,19 +28,16 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     elementrow.cpp \
-    adddatabase.cpp \
-    elementvertikal.cpp
+    adddatabase.cpp
 
 HEADERS += \
         mainwindow.h \
     elementrow.h \
-    adddatabase.h \
-    elementvertikal.h
+    adddatabase.h
 
 FORMS += \
         mainwindow.ui \
-    elementrow.ui \
-    elementvertikal.ui
+    elementrow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
