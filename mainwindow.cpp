@@ -44,32 +44,18 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
 void MainWindow::addWidget()
 {
     int rows = addDataBase->getCount()+1;
-    int colums = rows/70;
-    int k=0;
     int idRow =1;
     int i = 0;
-    for(; i<colums; i++){
-        int j = 0; // колличество строк в столбце
-        for(; j<70; j++){
-            ElementRow *elementRow = new ElementRow();
-            connect(elementRow,SIGNAL(valueChanged(int)), this, SLOT(saveChanget(int)));
-            elementRowList.append(elementRow);
-            elementRow->setId(idRow);
-            idRow++;
-            ui->gridLayout_3->addWidget(elementRow, j, i, Qt::AlignJustify);
-        }
-        k+=j;
-    }
-    int ost = rows-k;
-    if(ost>0){
-        for(int j = 0; j<ost; j++){
-            ElementRow *elementRow = new ElementRow();
-            connect(elementRow,SIGNAL(valueChanged(int)), this, SLOT(saveChanget(int)));
-            elementRowList.append(elementRow);
-            elementRow->setId(idRow);
-            idRow++;
-            ui->gridLayout_3->addWidget(elementRow, j, i, Qt::AlignJustify);
-        }
+    int colums = rows/9;
+    for(; i<rows; i++){
+        ElementRow *elementRow = new ElementRow();
+        connect(elementRow,SIGNAL(valueChanged(int)), this, SLOT(saveChanget(int)));
+        elementRowList.append(elementRow);
+        elementRow->setId(idRow);
+        idRow++;
+        int row = i%colums;
+        int col = i/colums;
+        ui->gridLayout_3->addWidget(elementRow, row, col, Qt::AlignJustify);
     }
 }
 
