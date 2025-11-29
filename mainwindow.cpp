@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     addDataBase=new AddDataBase();
     addDataBase->connectDB();
     addComboBox();
+    setWindowTitle("Чек-лист для вышивки");
 }
 
 MainWindow::~MainWindow()
@@ -90,16 +91,19 @@ void MainWindow::on_toolButton_clicked(bool checked)
         serchRowList.clear();
     }
     if(checked==false){
-        ui->toolButton->setText("Показать все");
         for(int i = 0; i<elementRowList.size(); i++){
             if(elementRowList[i]->getCheked()==true){                
                 serchRowList.append(elementRowList[i]);
             }
         }
     }
+    if(!serchRowList.empty()){
+        ui->toolButton->setText("Показать все");
+    }
     else{
+        ui->toolButton->setChecked(true);
         ui->toolButton->setText("Показать отмеченные");
-    }    
+    }
     serchList();
 }
 

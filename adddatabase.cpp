@@ -39,7 +39,7 @@ int AddDataBase::getCount()
     if( !qry.exec() )
         qDebug() << qry.lastError().text();
     else{
-        qDebug() <<QString::number(id_)+" Selected!";
+        // qDebug() <<QString::number(id_)+" Selected!";
 
         QSqlRecord rec = qry.record();
 
