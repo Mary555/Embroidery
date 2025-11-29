@@ -20,11 +20,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_comboBox_currentIndexChanged(int index)
 {
-    for(int i = 0; i<elementRowList.size(); i++){
-        elementRowList[i]->deleteLater();
+    if(!elementRowList.empty()){
+        for(int i = 0; i<elementRowList.size(); i++){
+            elementRowList[i]->deleteLater();
+        }
+        elementRowList.clear();
     }
-    elementRowList.clear();
-    index += 1;
+    index++;
     if(index==ThreadType::DMC){
         addDataBase->setId(index);
     }
@@ -55,7 +57,7 @@ void MainWindow::addWidget()
         idRow++;
         int row = i%colums;
         int col = i/colums;
-        ui->gridLayout_3->addWidget(elementRow, row, col, Qt::AlignJustify);
+        ui->gridLayout_3->addWidget(elementRow, row, col, Qt::AlignTop);
     }
 }
 
@@ -80,23 +82,25 @@ void MainWindow::addComboBox()
 
 void MainWindow::on_toolButton_clicked(bool checked)
 {
+    on_comboBox_currentIndexChanged(ui->comboBox->currentIndex());
+    if(!serchRowList.empty()){
+        for(int i = 0; i<serchRowList.size(); i++){
+            serchRowList[i]->deleteLater();
+        }
+        serchRowList.clear();
+    }
     if(checked==false){
         ui->toolButton->setText("Показать все");
         for(int i = 0; i<elementRowList.size(); i++){
-            if(elementRowList[i]->getCheked()==true){
-                elementRowList[i]->show();
-            }
-            else{
-                elementRowList[i]->hide();
+            if(elementRowList[i]->getCheked()==true){                
+                serchRowList.append(elementRowList[i]);
             }
         }
     }
     else{
         ui->toolButton->setText("Показать отмеченные");
-        for(int i = 0; i<elementRowList.size(); i++){
-            elementRowList[i]->show();
-        }
-    }
+    }    
+    serchList();
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -122,17 +126,36 @@ void MainWindow::on_pushButtonReset_clicked()
 
 void MainWindow::serch(QString serch)
 {
-    for(int i = 0; i<elementRowList.size(); i++){
-        QString str = elementRowList[i]->getText();
-        if(str.contains(serch)){
-            elementRowList[i]->show();
+    on_comboBox_currentIndexChanged(ui->comboBox->currentIndex());
+    if(!serchRowList.empty()){
+        for(int i = 0; i<serchRowList.size(); i++){
+            serchRowList[i]->deleteLater();
         }
-        else{
+        serchRowList.clear();
+    }
+    for(int i = 0; i<(elementRowList.size()); i++){
+        QString str = elementRowList[i]->getText();
+        if(str.contains(serch) && !serch.isEmpty()){
+            serchRowList.append(elementRowList[i]);
+        }
+    }
+    serchList();
+}
+
+void MainWindow::serchList()
+{
+    if(!serchRowList.empty()){
+        for(int i = 0; i<(elementRowList.size()); i++){
+            ui->gridLayout_3->removeWidget(elementRowList[i]);
             elementRowList[i]->hide();
         }
-
-        if (serch.isEmpty()){
-            elementRowList[i]->show();
+        int colums = serchRowList.size()/9;
+        if(colums==0) colums++;
+        for(int i = 0; i<serchRowList.size(); i++){
+            int col = i%colums;
+            int row = i/colums;
+            ui->gridLayout_3->addWidget(serchRowList[i], row, col, Qt::AlignTop);
+            serchRowList[i]->show();
         }
     }
 }

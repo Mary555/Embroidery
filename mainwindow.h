@@ -37,9 +37,11 @@ private:
     void addWidget();
     void filling();
     void serch(QString serch);
+    void serchList();
 
     AddDataBase *addDataBase;
     QList<ElementRow *> elementRowList;
+    QList<ElementRow *> serchRowList;
 
     int id_;
 };
