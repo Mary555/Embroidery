@@ -1,5 +1,4 @@
 #include "adddatabase.h"
-#include <QtSql>
 #include <QDir>
 
 AddDataBase::AddDataBase()
@@ -9,14 +8,23 @@ AddDataBase::AddDataBase()
 
 void AddDataBase::connectDB()
 {
-    QSqlDatabase sdb = QSqlDatabase::addDatabase("QSQLITE");
+    sdb = QSqlDatabase::addDatabase("QSQLITE");
     QDir dir;
-    QString path = dir.absolutePath();
-    qDebug() << path+"/CheckList.sqlite";
-    sdb.setDatabaseName(path+"/CheckList.sqlite");
+    path = dir.absolutePath()+"/CheckList.sqlite";
+    qDebug() << path;
+    sdb.setDatabaseName(path);
     if (!sdb.open()) {
         qDebug() << sdb.lastError().text();
     }
+}
+
+void AddDataBase::disconnectDB()
+{
+    if(sdb.isOpen()){
+        sdb.close();
+        qDebug() <<"close SqlDatabase";
+    }
+    sdb.removeDatabase(path);
 }
 
 int AddDataBase::getCount()

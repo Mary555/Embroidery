@@ -2,6 +2,7 @@
 #define ADDDATABASE_H
 
 #include <QList>
+#include <QtSql>
 
 enum ThreadType{
     DMC=1,
@@ -16,6 +17,7 @@ public:
     AddDataBase();
 
     void connectDB();
+    void disconnectDB();
 
     int getCount();
     QString getNumberrope(int id);
@@ -30,6 +32,8 @@ public:
 
 private:
     int id_;
+    QSqlDatabase sdb;
+    QString path;
 };
 
 #endif // ADDDATABASE_H

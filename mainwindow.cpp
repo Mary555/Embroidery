@@ -16,6 +16,19 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    if(!elementRowList.empty()){
+        for(int i = 0; i<elementRowList.size(); i++){
+            elementRowList[i]->deleteLater();
+        }
+        elementRowList.clear();
+    }
+    if(!serchRowList.empty()){
+        for(int i = 0; i<serchRowList.size(); i++){
+            serchRowList[i]->deleteLater();
+        }
+        serchRowList.clear();
+    }
+    addDataBase->disconnectDB();
     delete ui;
 }
 
