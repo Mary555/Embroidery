@@ -1,5 +1,8 @@
 #include "adddatabase.h"
+#include <QDebug>
 #include <QDir>
+#include <QSqlQuery>
+#include <QSqlRecord>
 
 AddDataBase::AddDataBase()
 {
@@ -53,14 +56,15 @@ int AddDataBase::getCount()
 
         int cols = rec.count();
 
-//        for( int c=0; c<cols; c++ )
-//            qDebug() << QString( "Column %1: %2" ).arg( c ).arg( rec.fieldName(c) );
+        //        for( int c=0; c<cols; c++ )
+        //            qDebug() << QString( "Column %1: %2" ).arg( c ).arg( rec.fieldName(c) );
 
-        for( int r=0; qry.next(); r++ )
+        for( int r=0; qry.next(); r++ ){
             for( int c=0; c<cols; c++ ){
-//                qDebug() << QString( "Row %1, %2: %3" ).arg( r ).arg( rec.fieldName(c) ).arg( qry.value(c).toString() );
+                //                qDebug() << QString( "Row %1, %2: %3" ).arg( r ).arg( rec.fieldName(c) ).arg( qry.value(c).toString() );
                 count = r;
             }
+        }
     }
     return count;
 }
@@ -88,13 +92,13 @@ QString AddDataBase::getNumberrope(int id)
     else{
         if(id_==ThreadType::PNK||id_==ThreadType::GAMMA){
             while(qry.next()){
-//                qDebug() << QString( "%1" ).arg( qry.value(0).toString().rightJustified(4,'0'));
+                //                qDebug() << QString( "%1" ).arg( qry.value(0).toString().rightJustified(4,'0'));
                 number=qry.value(0).toString().rightJustified(4,'0');
             }
         }
         else{
             while(qry.next()){
-//                qDebug() << QString( "%1" ).arg( qry.value(0).toString() );
+                //                qDebug() << QString( "%1" ).arg( qry.value(0).toString() );
                 number=qry.value(0).toString();
             }
         }
@@ -125,7 +129,7 @@ int AddDataBase::getAmount(int id)
     }
     else{
         while(qry.next()){
-//            qDebug() << QString( "%1" ).arg( qry.value(0).toString() );
+            //            qDebug() << QString( "%1" ).arg( qry.value(0).toString() );
             amount_=qry.value(0).toInt();
         }
     }

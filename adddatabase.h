@@ -1,8 +1,10 @@
 #ifndef ADDDATABASE_H
 #define ADDDATABASE_H
 
-#include <QList>
 #include <QtSql>
+#include <QString>
+#include <QList>
+#include <QSqlDatabase>
 
 enum ThreadType{
     DMC=1,
@@ -31,7 +33,7 @@ public:
     bool setUpdate(int id, QString numberrope, int amount, bool isvalue);
 
 private:
-    int id_;
+    int id_{0};
     QSqlDatabase sdb;
     QString path;
 };

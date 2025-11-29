@@ -2,6 +2,7 @@
 #define ELEMENTROW_H
 
 #include <QWidget>
+#include <QString>
 
 namespace Ui {
 class ElementRow;
